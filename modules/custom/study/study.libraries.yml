@@ -1,0 +1,7 @@
+drupal.study:
+  version: VERSION
+  js:
+    js/advertisement.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

@@ -1,0 +1,10 @@
+name: study
+type: module
+description: D8 India study group
+core: 8.x
+package: Custom
+# These modules are required by the tests, must be available at bootstrap time
+dependencies:
+  - options
+  - entity_reference
+  - examples
