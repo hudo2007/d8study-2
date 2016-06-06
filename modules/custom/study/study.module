@@ -36,9 +36,9 @@ function study_cron() {
   foreach ($blocks AS $block) {
     $symbol = $block->field_symbol->value;
 
-    list($last_price, $change) = _make_API_call($symbol);
-    $block->field_last_price = $last_price;
-    $block->field_change = $change;
+    $stockData = _make_API_call($symbol);
+    $block->field_last_price = $stockData->LastPrice;
+    $block->field_change = $stockData->Change;
     $block->save();
   }
 }
