@@ -1,0 +1,5 @@
+name: Study Composer
+type: module
+description: Study Composer related stuff
+core: 8.x
+package: Custom

@@ -1,0 +1,7 @@
+services:
+  study_composer.content_sub:
+    class: Drupal\study_composer\EventSubscriber\DefaultSubscriber
+    arguments: []
+    tags:
+      - { name: event_subscriber }
+

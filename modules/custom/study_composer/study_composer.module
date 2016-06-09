@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Contains study_composer.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Forecast\Forecast;
+
+/**
+ * Implements hook_help().
+ */
+function study_composer_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the study_composer module.
+    case 'help.page.study_composer':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Study Composer related stuff') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function study_composer_block_view_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {
+  if ($build['#block']->id() == 'mylocation') {
+    $build['#pre_render'][] = 'myLocationContent';
+  }
+}
+
+/**
+ * Pre Build function to set the correct content of the block.
+ */
+function myLocationContent(array $build) {
+  $forecast = new Forecast('7411b0e6d5e0c99fbd7405fd6de00cd5');
+
+  $forecastContent = $forecast->get(
+    $build['content']['field_latitude']['#items']->getValue()[0]['value'],
+    $build['content']['field_longitude']['#items']->getValue()[0]['value'],
+    null,
+    array(
+      'units' => 'si',
+      'exclude' => 'flags'
+    )
+  );
+  $build['content'] = [
+    '#markup' => t('Forecast is @summary with temprature of @temp deg C', array('@summary' => $forecastContent->currently->summary, '@temp' => $forecastContent->currently->temperature)),
+    ];
+  return $build;
+}

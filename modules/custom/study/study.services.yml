@@ -1,0 +1,5 @@
+services:
+  study.content_subscriber:
+    class: Drupal\study\EventSubscriber\ContentSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,16 @@
+{
+  "name": "drupal/study_composer",
+  "type": "drupal-module",
+  "description": "Study Composer related stuff",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/study_composer",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/study_composer",
+    "source": "http://cgit.drupalcode.org/study_composer"
+  },
+  "require": {
+    "guhelski/forecast-php": "1.1.*"
+  }
+}
