@@ -3,7 +3,8 @@
 namespace Drupal\study_composer\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 /**
  * Class DefaultSubscriber.
@@ -24,20 +25,13 @@ class DefaultSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   static function getSubscribedEvents() {
-    $events['simple_page_load'] = ['updateContent'];
-
+    $events[KernelEvents::RESPONSE][] = array('addAccessAllowOriginHeaders');
     return $events;
   }
 
-  /**
-   * This method is called whenever the simple_page_load event is
-   * dispatched.
-   *
-   * @param GetResponseEvent $event
-   */
-  public function updateContent(Event $event) {
-    $event->setContent('This is set from File ' . __FILE__);
-    drupal_set_message('Event simple_page_load thrown by Subscriber in module study_composer.', 'status', TRUE);
+  public function addAccessAllowOriginHeaders(FilterResponseEvent $event) {
+    $response= $event->getResponse();
+    $response->headers->set('X-Frame-Options', 'Deny');
   }
 
 }
